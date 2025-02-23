@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum OfferStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+model Offer {
+  id            Int         @id @default(autoincrement())
+  status        OfferStatus @default(PENDING)
+  senderAddress String
+  intrestedNFT  Int
+  offeredNFT    Int
+
+  personAId String
+  personBId String
+  personA   User @relation("SentOffers", fields: [personAId], references: [address])
+  personB   User @relation("ReceivedOffers", fields: [personBId], references: [address])
+
+  @@map("offers")
+}
+
+model User {
+  address String @id @unique
+  sentOffers     Offer[] @relation("SentOffers")
+  receivedOffers Offer[] @relation("ReceivedOffers")
+
+  @@map("users")
+}

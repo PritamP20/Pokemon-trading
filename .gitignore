@@ -1,0 +1,11 @@
+.env 
+
+.env.local
+
+.env.development
+
+./Backend/http/node_modules
+./Backend/WebSockets/node_modules
+./Backend/db/node_modules
+./BlockChain/node_modules
+./pokemon_trading/node_modules
